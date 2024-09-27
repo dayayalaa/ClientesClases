@@ -4,6 +4,8 @@ import Home from '../pages/Home.vue';
 import Chat from '../pages/Chat.vue';
 import Login from '../pages/Login.vue';
 import Register from '../pages/Register.vue';
+import MyPerfil from '../pages/MyProfile.vue';
+import MyPerfilEditar from '../pages/MyperfileEdit.vue';
 
 // Definimos las rutas.
 const routes = [
@@ -11,6 +13,8 @@ const routes = [
     { path: '/chat',                component: Chat, },
     { path: '/iniciar-sesion',      component: Login, },
     { path: '/registrarse',         component: Register, },
+    {path: '/mi-perfil',            component: MyPerfil,},
+    {path: '/mi-perfil/editar',     component: MyPerfilEditar,},
 ];
 
 // Creamos el router.

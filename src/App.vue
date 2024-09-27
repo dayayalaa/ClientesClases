@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './services/firebase';
+import { logout, subcribeToAuthChanges } from './services/auth';
 
 const loggedUser = ref({
     id: null,
@@ -9,23 +8,12 @@ const loggedUser = ref({
 });
 
 onMounted(() => {
-    // Nos "suscribimos" a los cambios de la autenticación.
-    onAuthStateChanged(auth, user => {
-        if(user) {
-            loggedUser.value = {
-                // En el usuario de Firebase Authentication, el id se llama
-                // uid.
-                id: user.uid,
-                email: user.email,
-            }
-        } else {
-            loggedUser.value = {
-                id: null,
-                email: null,
-            }
-        }
-    });
+    subcribeToAuthChanges(newUserData => loggedUser.value =newUserData);
 });
+
+const handleLogout= () => {
+    logout();
+}
 </script>
 
 <template>
@@ -62,9 +50,9 @@ onMounted(() => {
             <li><router-link class="block py-1 px-2" to="/">Home</router-link></li>
             <template v-if="loggedUser.id !== null">
                 <li><router-link class="block py-1 px-2" to="/chat">Chat</router-link></li>
-                <li><router-link class="block py-1 px-2" to="/chat">Mi Perfil</router-link></li>
+                <li><router-link class="block py-1 px-2" to="/mi-perfil">Mi Perfil</router-link></li>
                 <li>
-                    <form action="#">
+                    <form action="#" @submit.pervent="handleLogout">
                         <button type="submit">{{ loggedUser.email }} (Cerrar Sesión)</button>
                     </form>
                 </li>
