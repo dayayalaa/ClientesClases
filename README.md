@@ -13,3 +13,10 @@
 
 4. Para obtener los últimos cambios del repositorio
     - git pull
+
+
+
+------------------------ 
+# Vincular FireBase
+
+- npm install firebase
